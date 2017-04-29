@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html class="not-ie no-js" lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="王泽宇">
+    <title>租车系统</title>
+    <link rel="shortcut" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="/css/style.css" media="screen" />
+    <link rel="stylesheet" href="/css/skeleton.css" media="screen" />
+    <link rel="stylesheet" href="/sliders/flexslider/flexslider.css" media="screen" />
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" />
+    <!--<script src="/js/modernizr.custom.js"></script>-->
+    <script src="/js/jquery-1.7.2.min.js"></script>
+</head>
+
+<body class="menu-1 h-style-1 text-1">
+    <div class="wrap">
+        {{include 'header'}} {{include 'login'}}
+
+        <!-- - - - - - - - - - - - - - Top Panel - - - - - - - - - - - - - - - - -->
+        <div class="top-panel clearfix">
+            <!-- - - - - - - - - - - Slider - - - - - - - - - - - - - -->
+            <div id="slider" class="flexslider clearfix">
+
+            </div>
+            <!-- - - - - - - - - - - end Slider - - - - - - - - - - - - - -->
+
+            <!-- - - - - - - - - - - Search Panel - - - - - - - - - - - - - -->
+            <div class="widget_custom_search">
+                {{include 'search'}}
+            </div>
+            <!-- - - - - - - - - - end Search Panel - - - - - - - - - - - - -->
+        </div>
+        <!--/ .top-panel-->
+
+        <!-- - - - - - - - - - - - - - main - - - - - - - - - - - - - - - - -->
+        <div class="main">
+            <section class="container sbr clearfix">
+                {{include 'main'}}
+            </section>
+        </div>
+        <!--/ .main-->
+
+        <!-- - - - - - - - - - - - - - footer - - - - - - - - - - - - - - - - -->
+        <footer id="footer" class="container clearfix">
+            <section class="container clearfix">
+                {{include 'footer'}}
+            </section>
+        </footer>
+        <!--/ #footer-->
+
+    </div>
+    <!--/ .wrap-->
+
+    <script>
+        $('#slider').load('/car/slider');
+    </script>
+</body>
+
+</html>

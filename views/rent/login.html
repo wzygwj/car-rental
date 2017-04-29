@@ -1,0 +1,73 @@
+<div class="account-wrapper">
+    <form class="form-reg" />
+    <a href="#" class="log">登录</a>
+    <p>
+        <label>用户名*</label>
+        <input class="input-medium" type="text" name="username" />
+    </p>
+    <p>
+        <label>密码*</label>
+        <input class="input-medium" type="password" name="password" />
+    </p>
+    <p class="forgot-pass">
+        <a href="#">忘记密码?</a>
+    </p>
+    <p>
+        <a class="button dark enter-btn login">登录</a>
+        <a class="button dark enter-btn register">注册</a>
+    </p>
+    </form>
+    <!--/ .form-reg-->
+</div>
+
+<!--/ .account-wrapper-->
+<script src="/js/jquery.cookie.js"></script>
+<script>
+    (function () {
+
+        var Btn = $('.form-reg .log'),
+            form = $('.account-wrapper'),
+            loginBtn = $('.login'),
+            loging1Btn = $('.login1'),
+            regBtn = $('.register'),
+            reg2Btn = $('.registed');
+
+        if ($.cookie("username")) {
+            form.hide();
+        }
+        $('.form-reg').on('click', '.login', function () {
+            $.post('/user/login', $('.form-reg').serialize(), function (res) {
+                window.location.href = '/'
+            })
+        })
+        $('.form-reg').on('click', '.login1', function () {
+            $('.log').html('登录');
+            regBtn.addClass('register').removeClass('registed');
+            loginBtn.addClass('login').removeClass('login1');
+        })
+        $('.form-reg').on('click', '.register', function () {
+            $('.log').html('注册');
+            regBtn.removeClass('register').addClass('registed');
+            loginBtn.removeClass('login').addClass('login1');
+        })
+        $('.form-reg').on('click', '.registed', function () {
+            $.post('/user/register', $('.form-reg').serialize(), function (res) {
+                console.log(res)
+            })
+        })
+        Btn.on('click', function (e) {
+
+            var $target = $(e.target);
+
+            if (!$target.hasClass('active')) {
+                form.animate({ right: 0 }, 250);
+                $target.addClass('active');
+            } else {
+                form.animate({ right: '-220px' }, 250);
+                $target.removeClass('active');
+            }
+            e.preventDefault();
+        });
+    })();
+
+</script>

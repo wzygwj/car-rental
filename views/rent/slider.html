@@ -1,0 +1,35 @@
+<ul class="slides">
+    {{each cars as car}}
+    <li>
+        <img src="images/cars/{{car.picture}}" alt="" />
+        <div class="caption">
+            <div class="caption-entry">
+                <dl class="auto-detailed clearfix">
+                    <dt><span class="model">{{car.name}}</span></dt>
+                    <dd class="media-hidden"><b>{{car.type}}</b></dd>
+                    <dd class="media-hidden"><b>{{car.desc}}</b></dd>
+                    <dd><span class="heading">${{car.price}}</span></dd>
+                </dl>
+                <!--/ .auto-detailed-->
+                <a href="#" class="button orange">Details &raquo;</a>
+            </div>
+            <!--/ .caption-entry-->
+        </div>
+        <!--/ .caption-->
+    </li>
+    {{/each}}
+</ul>
+<!-- - - - - - - - - - - - - end Top Panel - - - - - - - - - - - - - - - -->
+<script src="/sliders/flexslider/jquery.flexslider-min.js"></script>
+<script>
+    (function () {
+        if ($('#slider').length) {
+            $(window).load(function () {
+                $('#slider').flexslider({
+                    directionNav: false,
+                    controlNav: true
+                });
+            });
+        }
+    })();
+</script>

@@ -1,0 +1,157 @@
+<!-- - - - - - - - - - - - - - Header - - - - - - - - - - - - - - - - -->
+<header id="header" class="clearfix">
+    <a href="/" id="logo"><img src="/images/logo.png" alt="Car Dealer" /></a>
+    <div class="widget-container widget_search">
+        <span class="call"><span>+1 234</span> 567-8901</span><br />
+        <span class="adds">12 Street, Los Angeles, CA, 94101</span>
+        <form action="#" id="searchform" method="get" />
+        <p>
+            <input type="text" id="s" placeholder="Search" />
+            <button type="submit" id="searchsubmit"></button>
+        </p>
+        </form>
+        <!--/ #searchform-->
+    </div>
+    <!--/ .widget-container-->
+    <nav id="navigation" class="navigation">
+        <ul>
+            <li class="current-menu-item"><a href="/">主页</a></li>
+            <li><a href="all-listings.html">租车</a>
+                <ul>
+                    <li><a href="all-listings.html">All Listings</a></li>
+                    <li><a href="#">Manufacturer</a>
+                        <ul>
+                            <li><a href="one-products.html">Aston Martin</a></li>
+                            <li><a href="one-products.html">Audi</a></li>
+                            <li><a href="one-products.html">BMW</a></li>
+                            <li><a href="one-products.html">Chevrolet</a></li>
+                            <li><a href="one-products.html">Mercedes Benz</a></li>
+                            <li><a href="one-products.html">Ferrari</a></li>
+                            <li><a href="one-products.html">Lexus</a></li>
+                            <li><a href="one-products.html">Porsche</a></li>
+                            <li><a href="one-products.html">Toyota</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Body Type</a></li>
+                    <li><a href="#">Engine Size</a></li>
+                    <li><a href="#">Mileage</a></li>
+                    <li><a href="#">Model Year</a></li>
+                    <li><a href="#">Price Range</a></li>
+                    <li><a href="#">Transmission</a></li>
+                </ul>
+            </li>
+            <li><a href="">Sales Reps</a></li>
+            <li><a href="">联系我们</a></li>
+            <li style="float: right; display:none;">
+                <a class="username" href="">用户！</a>
+                <ul>
+                    <li><a href="javascript:void(0);" onclick="logout()">退出</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <!--/ #navigation-->
+</header>
+<!--/ #header-->
+<!-- - - - - - - - - - - - - - end Header - - - - - - - - - - - - - - - - -->
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<script>
+    function logout() {
+        $.get('/user/logout', function () {
+            window.location.href = '/'
+        })
+    }
+    (function () {
+        if ($.cookie("username")) {
+            $('.username').html($.cookie("username")).parent().show();
+        }
+        var arrowimages = {
+            down: 'downarrowclass',
+            right: 'rightarrowclass'
+        };
+        var $mainNav = $('#navigation').find('> ul'),
+            optionsList = '<option value="" selected>Navigation</option>';
+
+        var $submenu = $mainNav.find("ul").parent();
+        $submenu.each(function (i) {
+            var $curobj = $(this);
+            this.istopheader = $curobj.parents("ul").length == 1 ? true : false;
+            $curobj.children("a").append('<span class="' + (this.istopheader ? arrowimages.down : arrowimages.right) + '"></span>');
+        });
+        $mainNav.on('mouseenter', 'li', function () {
+            var $this = $(this),
+                $subMenu = $this.children('ul');
+            if ($subMenu.length) $this.addClass('hover');
+            $subMenu.hide().stop(true, true).fadeIn(200);
+        }).on('mouseleave', 'li', function () {
+            $(this).removeClass('hover').children('ul').stop(true, true).fadeOut(50);
+        });
+
+        // Navigation Responsive
+        $mainNav.find('li').each(function () {
+            var $this = $(this),
+                $anchor = $this.children('a'),
+                depth = $this.parents('ul').length - 1,
+                dash = '';
+            if (depth) {
+                while (depth > 0) {
+                    dash += '--';
+                    depth--;
+                }
+            }
+            optionsList += '<option value="' + $anchor.attr('href') + '">' + dash + ' ' + $anchor.text() + '</option>';
+        }).end()
+            .after('<select class="nav-responsive">' + optionsList + '</select>');
+        $('.nav-responsive').on('change', function () {
+            window.location = $(this).val();
+        });
+    })();
+    /* end Main Navigation */
+
+    /* ---------------------------------------------------- */
+    /*	Back to Top
+    /* ---------------------------------------------------- */
+
+    (function () {
+        var extend = {
+            button: '#back-top',
+            text: 'Back to Top',
+            min: 200,
+            fadeIn: 400,
+            fadeOut: 400,
+            speed: 800,
+            easing: 'easeOutQuint'
+        },
+            oldiOS = false,
+            oldAndroid = false;
+
+        // Detect if older iOS device, which doesn't support fixed position
+        if (/(iPhone|iPod|iPad)\sOS\s[0-4][_\d]+/i.test(navigator.userAgent))
+            oldiOS = true;
+        // Detect if older Android device, which doesn't support fixed position
+        if (/Android\s+([0-2][\.\d]+)/i.test(navigator.userAgent))
+            oldAndroid = true;
+        $('body').append('<a href="#" id="' + extend.button.substring(1) + '" title="' + extend.text + '">' + extend.text + '</a>');
+        $(window).scroll(function () {
+            var pos = $(window).scrollTop();
+            if (oldiOS || oldAndroid) {
+                $(extend.button).css({
+                    'position': 'absolute',
+                    'top': position + $(window).height()
+                });
+            }
+            if (pos > extend.min) {
+                $(extend.button).fadeIn(extend.fadeIn);
+            }
+            else {
+                $(extend.button).fadeOut(extend.fadeOut);
+            }
+        });
+        $(extend.button).click(function (e) {
+            $('html, body').animate({ scrollTop: 0 }, extend.speed, extend.easing);
+            e.preventDefault();
+        });
+    })();
+/* end Back to Top */
+</script>

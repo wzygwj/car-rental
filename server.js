@@ -29,4 +29,10 @@ app.get('/', (req, res) => {
 // 管理员
 app.use('/admin', require("./router/admin"))
 
+// 用户
+app.use('/user', require('./router/user'))
+
+// 车辆
+app.use('/car', require("./router/car"))
+
 app.listen(3000, () => console.log('Server runing at port 3000.'))
