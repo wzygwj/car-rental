@@ -1,0 +1,70 @@
+<div id="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-head-line">车辆管理</h1>
+            <h1 class="page-subhead-line">编辑车辆</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-sm-12 col-md-push-1">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <form action="/admin/car/edit/{{car.id}}" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>名称</label>
+                            <input class="form-control" type="text" name="name" value="{{car.name}}">
+                        </div>
+                        <div class="form-group">
+                            <label>价格</label>
+                            <input class="form-control" type="text" name="price" value="{{car.price}}">
+                        </div>
+                        <div class="form-group">
+                            <label>类型</label>
+                            <input class="form-control" type="text" name="type" value="{{car.type}}">
+                        </div>
+                        <div class="form-group">
+                            <label>描述</label>
+                            <input class="form-control" type="text" name="desc" value="{{car.desc}}">
+                        </div>
+                        <div class="form-group">
+                            <label>图片</label>
+                            <div>
+                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="/images/cars/{{car.picture}}" onerror="this.src='/back/assets/img/demoUpload.jpg'"
+                                        /></div>
+                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                    <div>
+                                        <span class="btn btn-file btn-primary"><span class="fileupload-new">选择</span>
+                                        <span class="fileupload-exists">换一张</span><input type="file" name="pic"></span>
+                                        <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">删除</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-info">修改</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('form').submit(function (e) {
+        e.preventDefault();
+        $("form").ajaxSubmit({
+            url: $(this).attr('action'),
+            type: 'post',
+            success: function (res) {
+                if (res.code == 'success') {
+                    $('#page-wrapper').load('/admin/car/list/');
+                }
+                else {
+                    alert(res.message);
+                }
+            },
+            error: function () {
+            }
+        });
+    })
+
+</script>

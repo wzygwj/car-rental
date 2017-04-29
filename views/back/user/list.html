@@ -1,0 +1,69 @@
+<div id="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-head-line">用户管理</h1>
+            <h1 class="page-subhead-line">用户列表</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!--   Kitchen Sink -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>用户名</th>
+                                    <th>姓名</th>
+                                    <th>邮箱</th>
+                                    <th>地址</th>
+                                    <th>角色</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{each users as u i}}
+                                <tr>
+                                    <td>{{u.username}}</td>
+                                    <td>{{u.name}}</td>
+                                    <td>{{u.email}}</td>
+                                    <td>{{u.address}}</td>
+                                    <td>{{if u.isAdmin}}管理员{{else}}普通用户{{/if}}</td>
+                                    <td><i class="fa fa-edit fa-fw"></i><a href="javascript:void(0)" onclick="edit('/admin/user/edit/{{u.id}}')">编辑</a>
+                                        <i class="fa fa-trash fa-fw"></i><a href="javascript:void(0)" onclick="del('/admin/user/del/{{u.id}}')">删除</a>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination">
+                        <li {{if page==1 }} class="disabled" {{/if}}><a href="javascript:void(0)" onclick="getList('{{page - 1}}')">&laquo;</a></li>
+                        {{each pages as p}}
+                        <li {{if p==page}} class="active" {{/if}}><a href="javascript:void(0)" onclick="getList('{{p}}')">{{p}}</a></li>
+                        {{/each}}
+                        <li {{if page==pageCount }} class="disabled" {{/if}}><a href="javascript:void(0)" onclick="getList('{{page + 1}}')">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End  Kitchen Sink -->
+        </div>
+    </div>
+</div>
+<script>
+    function getList(page) {
+        $('#page-wrapper').load('/admin/user/list/' + page);
+    }
+    function edit(url) {
+        $('#page-wrapper').load(url);
+    }
+    function del(url) {
+        $.get(url, function (res) {
+            if (res.code == 'success') {
+                $('#page-wrapper').load('/admin/user/list/');
+            }
+        })
+    }
+
+</script>

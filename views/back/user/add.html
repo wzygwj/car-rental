@@ -1,0 +1,68 @@
+<div id="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-head-line">用户管理</h1>
+            <h1 class="page-subhead-line">添加用户</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-sm-12 col-md-push-1">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <form action="/admin/user/add">
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <input class="form-control" type="text" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="">姓名</label>
+                            <input class="form-control" type="text" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="">手机</label>
+                            <input class="form-control" type="text" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="">地址</label>
+                            <input class="form-control" type="text" name="address">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input class="form-control" type="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label>角色</label>
+                            <select class="form-control" name="isAdmin">
+                                <option value="false">普通用户</option>
+                                <option value="ture">管理员</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">密码</label>
+                            <input class="form-control" type="password" name="password">
+                        </div>
+                        <button type="submit" class="btn btn-info">添加</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('form').submit(function (e) {
+        e.preventDefault();
+        $.post(
+            $(this).attr('action'),
+            $(this).serialize(),
+            function (res) {
+                if (res.code == 'success') {
+                    $('#page-wrapper').load('/admin/user/list/');
+                }
+                else {
+                    alert(res.message);
+                }
+            }
+        )
+    })
+
+</script>
