@@ -41,7 +41,17 @@
         <!-- - - - - - - - - - - - - - main - - - - - - - - - - - - - - - - -->
         <div class="main">
             <section class="container sbr clearfix">
-                {{include 'main'}}
+                <section id="content" class="twelve columns">
+                    <div class="recent-list-cars">
+                        <h3 class="widget-title">热门车型</h3>
+                        <ul class="clearfix hot">
+
+                        </ul>
+                        <a href="#" class="see">查看全部</a>
+                    </div>
+                    <!--/ .recent-list-cars-->
+                </section>
+                {{include 'sidebar'}}
             </section>
         </div>
         <!--/ .main-->
@@ -60,6 +70,7 @@
     <!--script-->
     <script>
         $('#slider').load('/car/slider');
+        $('.hot').load('/car/hot');
     </script>
 </body>
 

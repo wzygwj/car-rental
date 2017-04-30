@@ -9,4 +9,11 @@ router.get('/slider', (req, res) => {
         });
     })
 })
+router.get('/hot', (req, res) => {
+    db.Car.find().limit(6).exec((err, data) => {
+        res.render('rent/hot', {
+            cars: data
+        });
+    })
+})
 module.exports = router;
