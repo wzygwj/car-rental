@@ -29,6 +29,7 @@ router.get('/register', (req, res) => {
     res.render('rent/register')
 })
 router.post('/register', (req, res) => {
+    req.body.isAdmin = false;
     new db.User(req.body).save(err => {
         if (err) {
             res.json({ code: 'error', message: '系统错误' })

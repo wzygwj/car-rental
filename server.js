@@ -35,4 +35,4 @@ app.use('/user', require('./router/user'))
 // 车辆
 app.use('/car', require("./router/car"))
 
-app.listen(3000, () => console.log('Server runing at port 3000.'))
+app.listen(3001, () => console.log('Server runing at port 3001.'))
