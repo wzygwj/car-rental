@@ -1,9 +1,9 @@
 {{each cars as car}}
 <li>
-    <a href="#" class="single-image video picture">
-        <img src="images/cars/{{car.picture}}" alt="" />
+    <a href="/car/one/{{car.id}}" class="single-image video picture">
+        <img src="/images/cars/{{car.picture}}" alt="" />
     </a>
-    <a href="#" class="list-meta">
+    <a href="/car/one/{{car.id}}" class="list-meta">
         <h6 class="title-list-item">{{car.name}}</h6>
     </a>
     <div class="detailed">
@@ -12,6 +12,11 @@
         <b>{{car.desc}}</b>
     </div>
     <!--/ .detailed-->
-    <a href="#" class="button orange">详情</a>
+    <a href="/car/one/{{car.id}}" class="button orange">详情</a>
 </li>
 {{/each}}
+<script>
+    $('.single-image').each(function () {
+        $(this).append('<span class="curtain"></span>');
+    });
+</script>

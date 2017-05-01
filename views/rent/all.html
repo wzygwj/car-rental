@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="王泽宇">
+    <title>车辆列表</title>
+    <link rel="shortcut" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="/css/style.css" media="screen" />
+    <link rel="stylesheet" href="/css/skeleton.css" media="screen" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+</head>
+
+<body class="menu-1 h-style-1 text-1">
+    <div class="wrap">
+        {{include 'header'}} {{include 'login'}}
+
+        <!-- main -->
+        <div class="main">
+            <section class="container sbl clearfix">
+                {{include 'sidebar'}}
+                <div class="recent-list-cars">
+                    <h3 class="widget-title"><span>所有</span> 车辆</h3>
+                    <ul class="recent-list-cars clearfix">
+                        {{include 'hot'}}
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <!--/ .main-->
+
+        <!-- - - - - - - - - - - - - - footer - - - - - - - - - - - - - - - - -->
+        {{include 'footer'}}
+        <!--/ #footer-->
+    </div>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 {
   "name": "car-rental",
-  "version": "0.2.5",
+  "version": "0.4.0",
   "description": "租车",
   "main": "server.js",
   "scripts": {
