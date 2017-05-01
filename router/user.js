@@ -11,7 +11,7 @@ router.post('/login', (req, res) => {
             if (count > 0) {
                 db.User.findOne({ username: req.body.username }, (err, data) => {
                     if (req.body.password == data.password) {
-                        res.cookie('username', data.username, { maxAge: 1000000 })
+                        res.cookie('user', data, { maxAge: 1000000 })
                         res.json({ code: 'success', message: '登录成功' })
                     } else {
                         res.json({ code: 'error', message: '密码错误,请重新输入' })
@@ -42,8 +42,19 @@ router.post('/register', (req, res) => {
 
 // 用户注销
 router.get('/logout', (req, res) => {
-    res.clearCookie('username');
+    res.clearCookie('user');
     res.json({ code: 'success', message: '注销成功' })
 })
 
+// 联系我们
+router.get('/contact', (req, res) => {
+    new db.Contact(req.query).save(err => {
+        if (err) {
+            res.json({ code: 'error', message: '系统错误，提交失败！' })
+        }
+        else {
+            res.json({ code: 'success', message: '提交成功！' })
+        }
+    })
+})
 module.exports = router;

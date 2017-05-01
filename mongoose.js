@@ -6,7 +6,7 @@ db.on('error', err => console.error('数据库连接失败：', err));
 // 数据库连接成功的提示
 db.on('open', () => console.log('成功打开数据库'));
 
-const User = mongoose.model('users', {
+const User = mongoose.model('user', {
     username: { type: String, unique: true },
     name: String,
     password: String,
@@ -22,5 +22,11 @@ const Car = mongoose.model('car', {
     type: String,
     desc: String,
     picture: String
-})
-module.exports = { User, Car };
+});
+
+const Contact = mongoose.model('contact', {
+    content: String,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "user" }
+});
+
+module.exports = { User, Car, Contact };

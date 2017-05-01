@@ -39,8 +39,9 @@
         })
     }
     (function () {
-        if ($.cookie("username")) {
-            $('.username').html($.cookie("username")).parent().show();
+        if ($.cookie("user")) {
+            user = $.parseJSON($.cookie("user").substr(2))
+            $('.username').html(user.username).parent().show();
         }
         var arrowimages = {
             down: 'downarrowclass',
