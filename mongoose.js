@@ -29,4 +29,11 @@ const Contact = mongoose.model('contact', {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "user" }
 });
 
-module.exports = { User, Car, Contact };
+const Order = mongoose.model('order', {
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    car: { type: mongoose.Schema.Types.ObjectId, ref: "car" },
+    day: Number,
+    price: Number
+})
+
+module.exports = { User, Car, Contact, Order };

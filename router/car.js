@@ -22,6 +22,17 @@ router.get('/one/:id', (req, res) => {
     })
 })
 
+// 获取预定车辆信息
+router.get('/order_info/:id',(req,res)=>{
+    db.Car.findById(req.params.id, (err, data) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.render('rent/order', { car: data })
+        }
+    })
+})
+
 // 联系我们
 router.get('/contact', (req, res) => {
     res.render('rent/contact')

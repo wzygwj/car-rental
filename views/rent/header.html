@@ -22,6 +22,7 @@
             <li style="float: right; display:none;">
                 <a class="username" href="">用户！</a>
                 <ul>
+                    <li><a href="" class="js_order_url">查看订单</a></li>
                     <li><a href="javascript:void(0);" onclick="logout()">退出</a></li>
                 </ul>
             </li>
@@ -41,7 +42,8 @@
     (function () {
         if ($.cookie("user")) {
             user = $.parseJSON($.cookie("user").substr(2))
-            $('.username').html(user.username).parent().show();
+            $('.username').html(user.name).parent().show();
+            $('.js_order_url').attr('href', '/user/order/' + user._id);
         }
         var arrowimages = {
             down: 'downarrowclass',

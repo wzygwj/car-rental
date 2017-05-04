@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="王泽宇">
+    <title>联系我们</title>
+    <link rel="shortcut" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="/css/style.css" media="screen" />
+    <link rel="stylesheet" href="/css/skeleton.css" media="screen" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+</head>
+
+<body class="menu-1 h-style-1 text-1">
+    <div class="wrap">
+        {{include 'header'}} {{include 'login'}}
+
+        <!-- main -->
+        <div class="main">
+            <section class="container clearfix" style="text-align:center">
+                <h1>预定详情</h1>
+                <div class="compare-table clearfix">
+                    <div class="col features">
+                        <ul>
+                            <li>车辆</li>
+                            <li>时间</li>
+                            <li>价格</li>
+                            <li>联系方式</li>
+                            <li>地址</li>
+                        </ul>
+                    </div>
+                    <!--/ .col-->
+                    <div class="col">
+                        <ul>
+                            <li>{{data.car.name}}</li>
+                            <li>{{data.day}}天</li>
+                            <li>￥{{data.price}}</li>
+                            <li>{{data.user.phone}}</li>
+                            <li>{{data.user.address}}</li>
+                        </ul>
+                    </div>
+                    <!--/ .col-->
+                </div>
+                <!--/ .compare-table-->
+                <button type="submit" class="button dark enter-btn js_btn_rm" data-id="{{data.id}}">取消预定</button>
+            </section>
+            <!--/.container -->
+        </div>
+        <!--/ .main-->
+
+        <!-- - - - - - - - - - - - - - footer - - - - - - - - - - - - - - - - -->
+        <footer id="footer" class="container clearfix">
+            <section class="container clearfix">
+                {{include 'footer'}}
+            </section>
+        </footer>
+        <!--/ #footer-->
+    </div>
+    <script>
+        $('.js_btn_rm').click(function () {
+            $.get('/user/remove/order/' + $(this).data('id'), function (res) {
+                if (res.code == 'success') {
+                    alert(res.message);
+                    window.location.href = '/'
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

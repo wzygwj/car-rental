@@ -1,0 +1,55 @@
+<div class="modal fade" id="order">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <h4 class="modal-title">预定车辆</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">车辆：<span class="car">{{car.name}}</span></label>
+                        <input type="hidden" name="car" value="{{car.id}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="day" class="col-sm-2 control-label">租车时间:</label>
+                        <div class="col-sm-10">
+                            <select name="day" id="day" class="form-control" onchange="changePrice(this.value)">
+                                <option value="1">1天</option>
+                                <option value="2">2天</option>
+                                <option value="3">3天</option>
+                                <option value="4">4天</option>
+                                <option value="5">5天</option>
+                                <option value="6">6天</option>
+                                <option value="7">7天</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">价格：$<span class="price" data-price="{{car.price}}">{{car.price}}</span></label>
+                        <input type="hidden" name="price" value="{{car.price}}">
+                    </div>
+                    <input type="hidden" name="user" value="">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="button dark enter-btn js_btn_order">预定</button>
+                    <button type="button" class="button dark enter-btn" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function changePrice(day) {
+        var price = parseInt(day) * parseInt($('.price').data('price'));
+        $('.price').html(price)
+        $('input[name=price]').val(price)
+    }
+    $('form').submit(function (event) {
+        event.preventDefault();
+        $('input[name=user]').val(user._id)
+        $.post('/user/order', $(this).serialize(), function (res) {
+            alert(res.message)
+            $('#order').modal('hide');
+        })
+    })
+</script>

@@ -1099,8 +1099,8 @@ h6 {line-height: 1.5em;}
 		/* -------------------------------------------------- */		
 			
 		.compare-table {
-			margin-bottom: 30px;
-			width: 100%;
+			margin: 0 auto 30px auto;
+			width: 50%;
 			color: #7b7b7b;
 			text-align: left;
 		}
@@ -1116,7 +1116,7 @@ h6 {line-height: 1.5em;}
 
 			.compare-table .col.features {
 				border-left-width: 1px;
-				width: 238px;
+				width: 100px;
 			}
 			
 			.compare-table .col {width: 349px;}
