@@ -1,0 +1,57 @@
+<div id="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-head-line">预定管理</h1>
+            <h1 class="page-subhead-line">编辑订单</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-sm-12 col-md-push-1">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <form action="/admin/order/edit/{{order.id}}">
+                        <div class="form-group">
+                            <label>天数</label>
+                            <select class="form-control" name="day" onchange="changePrice(this.value)">
+                                <option value="1" {{if order.day == '1'}}selected{{/if}}>1天</option>
+                                <option value="2" {{if order.day == '2'}}selected{{/if}}>2天</option>
+                                <option value="3" {{if order.day == '3'}}selected{{/if}}>3天</option>
+                                <option value="4" {{if order.day == '4'}}selected{{/if}}>4天</option>
+                                <option value="5" {{if order.day == '5'}}selected{{/if}}>5天</option>
+                                <option value="6" {{if order.day == '6'}}selected{{/if}}>6天</option>
+                                <option value="7" {{if order.day == '7'}}selected{{/if}}>7天</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">价格：$<span class="price">{{order.price}}</span></label>
+                            <input type="hidden" name="price" value="{{order.price}}">
+                        </div>
+                        <button type="submit" class="btn btn-info">修改</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var price = parseInt('{{order.price / order.day}}');
+    function changePrice(day) {
+        $('.price').html(parseInt(day) * price)
+        $('input[name=price]').val(parseInt(day) * price);
+    }
+    $('form').submit(function (e) {
+        e.preventDefault();
+        $.post(
+            $(this).attr('action'),
+            $(this).serialize(),
+            function (res) {
+                if (res.code == 'success') {
+                    $('#page-wrapper').load('/admin/order/list/');
+                }
+                else {
+                    alert(res.message);
+                }
+            }
+        )
+    })
+</script>

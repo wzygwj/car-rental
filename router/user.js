@@ -60,7 +60,7 @@ router.get('/contact', (req, res) => {
 
 // 查看预定车辆
 router.get('/order/:id', (req, res) => {
-    db.Order.findOne({ user: req.params.id }).populate("user").populate('car')
+    db.Order.findOne({ user: req.params.id }).populate("user car")
         .exec(function (err, data) {
             res.render('rent/order_info', { data: data })
         });

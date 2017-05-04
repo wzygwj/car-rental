@@ -270,4 +270,63 @@ router.post('/car/edit/:id', upload.single('pic'), (req, res) => {
     })
 })
 
+// 订单管理
+router.get('/order/list/(:page)?', (req, res) => {
+    // page表示当前显示的是第几页
+    var page = req.params.page
+
+    page = page || 1
+    page = parseInt(page)
+
+    // 规定每页显示5条信息
+    var pageSize = 5
+
+    db.Order.find().count((err, total) => {
+        if (err) {
+            res.json({ code: 'error', message: '系统错误！' })
+        }
+        else {
+            // 得到一共有几页
+            var pageCount = Math.ceil(total / pageSize)
+            if (page > pageCount) page = pageCount
+            if (page < 1) page = 1
+            db.Order.find().populate("user car").skip((page - 1) * pageSize).limit(pageSize)
+                .exec((err, data) => {
+                    if (err) {
+                        res.json({ code: 'error', message: '系统错误！' })
+                    }
+                    else {
+                        res.render('back/order/list', {
+                            page,
+                            pageCount,
+                            // 调用getPages
+                            pages: getPages(page, pageCount),
+                            orders: data
+                        })
+                    }
+                })
+        }
+    })
+})
+
+// 编辑订单
+router.get('/order/edit/:id', (req, res) => {
+    db.Order.findById(req.params.id, (err, data) => {
+        if (err) {
+
+        } else {
+            res.render('back/order/edit', { order: data })
+        }
+    })
+})
+router.post('/order/edit/:id', (req, res) => {
+    db.Order.findByIdAndUpdate(req.params.id, req.body, err => {
+        if (err) {
+            res.json({ code: 'error', message: '系统错误' });
+        }
+        else {
+            res.json({ code: 'success', message: '成功！' });
+        }
+    })
+})
 module.exports = router;
