@@ -28,6 +28,14 @@
                     <ul class="recent-list-cars clearfix">
                         {{include 'hot'}}
                     </ul>
+                    <div class="wp-pagenavi clearfix">
+                        <span class="pages">Page {{page}} of {{pageCount}}</span>
+                        <a class="prevpostslink" href="/car/list/all/9/{{page - 1}}"></a> 
+                        {{each pages as p i}}
+                        <a href="/car/list/all/9/{{p}}" class="page" >{{p}}</a> 
+                        {{/each}}
+                        <a class="nextpostslink" href="/car/list/all/9/{{page + 1}}"></a>
+                    </div>
                 </div>
             </section>
         </div>
