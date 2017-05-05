@@ -23,6 +23,7 @@
         <div class="main">
             <section class="container clearfix" style="text-align:center">
                 <h1>预定详情</h1>
+                {{if data}}
                 <div class="compare-table clearfix">
                     <div class="col features">
                         <ul>
@@ -47,6 +48,9 @@
                 </div>
                 <!--/ .compare-table-->
                 <button type="submit" class="button dark enter-btn js_btn_rm" data-id="{{data.id}}">取消预定</button>
+                {{else}}
+                <h3>当前无预定</h3>
+                {{/if}}
             </section>
             <!--/.container -->
         </div>
