@@ -4,11 +4,11 @@
     <div class="widget-container widget_search">
         <span class="call"><span>+1 234</span> 567-8901</span><br />
         <span class="adds">12 Street, Los Angeles, CA, 94101</span>
-        <form action="#" id="searchform" method="get" />
-        <p>
-            <input type="text" id="s" placeholder="Search" />
-            <button type="submit" id="searchsubmit"></button>
-        </p>
+        <form action="/car/search" id="searchform" method="post">
+            <p>
+                <input type="text" id="s" placeholder="Search" name="name" />
+                <button type="submit" id="searchsubmit"></button>
+            </p>
         </form>
         <!--/ #searchform-->
     </div>
@@ -17,7 +17,6 @@
         <ul>
             <li class="current-menu-item"><a href="/">主页</a></li>
             <li><a href="/car/list/all/9/">租车</a></li>
-            <li><a href="">Sales Reps</a></li>
             <li><a href="/car/contact">联系我们</a></li>
             <li style="float: right; display:none;">
                 <a class="username" href="">用户！</a>

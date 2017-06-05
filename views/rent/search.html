@@ -1,54 +1,70 @@
-<h3 class="widget-title">搜索</h3>
-<form action="/" id="boxpanel" class="form-panel" />
-<fieldset>
-    <label for="manufacturer">Manufacturer:</label>
-    <select id="manufacturer" name="manufacturer">
-                    <option value="0" />Any
-                    <option value="1" />Lorem
-                    <option value="2" />Ipsum
-                </select>
-</fieldset>
-<fieldset>
-    <label for="minprice">Min Price:</label>
-    <select id="minprice" name="minprice">
-                    <option value="0" />No min
-                    <option value="1" />Lorem
-                    <option value="2" />Ipsum
-                </select>
-</fieldset>
-<fieldset>
-    <label for="maxprice">Max Price:</label>
-    <select id="maxprice" name="maxprice">
-                    <option value="0" />No max
-                    <option value="1" />Lorem
-                    <option value="2" />Ipsum
-                </select>
-</fieldset>
-<fieldset>
-    <label for="trans">Trans:</label>
-    <select id="trans" name="trans">
-                    <option value="0" />Any
-                    <option value="1" />Lorem
-                    <option value="2" />Ipsum
-                </select>
-</fieldset>
-<fieldset>
-    <label for="mileage">Mileage:</label>
-    <select id="mileage" name="mileage">
-                    <option value="0" />Any
-                    <option value="1" />Lorem
-                    <option value="2" />Ipsum
-                </select>
-</fieldset>
-<fieldset>
-    <label for="bodytype">Body Type:</label>
-    <select id="bodytype" name="bodytype">
-                    <option value="0" />Any
-                    <option value="1" />Lorem
-                    <option value="2" />Ipsum
-                </select>
-</fieldset>
-<div class="clear"></div>
-<button id="submitSearch" class="submit-search" type="submit">Search</button>
-</form>
-<!--/ .form-panel-->
+<!DOCTYPE html>
+<html class="not-ie no-js" lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="author" content="王泽宇">
+    <title>租车系统</title>
+    <link rel="shortcut" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="/css/style.css" media="screen" />
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/skeleton.css" media="screen" />
+    <link rel="stylesheet" href="/sliders/flexslider/flexslider.css" media="screen" />
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" />
+    <!--<script src="/js/modernizr.custom.js"></script>-->
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+</head>
+
+<body class="menu-1 h-style-1 text-1">
+    <div class="wrap">
+        {{include 'header'}} {{include 'login'}}
+
+        <div class="main">
+            <section class="container sbl clearfix">
+                <section id="content" class="twelve columns">
+                    <h3 class="section-title"><span>搜索结果</span></h3>
+                    {{each cars as car}}
+                    <article class="entry clearfix secondary">
+                        <a href="blog-single.html"><img class="entry-image" style="width:146px" src="/images/cars/{{car.picture}}" /></a>
+                        <div class="entry-body">
+                            <span class="date">{{car.name}}</span>
+                            <a href="/car/one/{{car.id}}">
+                                <h6 class="title">{{car.type}}</h6>
+                            </a>
+                        </div>
+                        <!--/ .entry-body-->
+                    </article>
+                    {{/each}}
+                    {{if cars.length == 0}}
+                    <article class="entry clearfix secondary">
+                        <div class="entry-body">
+                            <span class="date">未找到相关车辆！</span>
+                        </div>
+                        <!--/ .entry-body-->
+                    </article>
+                    {{/if}}
+                    <!--/ .wp-pagenavi-->
+                </section>
+                <!--/ #content-->
+
+                <aside id="sidebar" class="four columns">
+                    <div class="widget-container widget_custom_search">
+                        {{include 'search_slider'}}
+                    </div><!--/ .widget-container-->
+			    </aside><!--/ #sidebar-->
+            </section>
+        </div>
+        <!-- - - - - - - - - - - - - - footer - - - - - - - - - - - - - - - - -->
+        {{include 'footer'}}
+        <!--/ #footer-->
+    </div>
+    <!--/ .wrap-->
+    <!--script-->
+    <script>
+    </script>
+</body>
+
+</html>
