@@ -74,4 +74,27 @@ router.get('/contact', (req, res) => {
     res.render('rent/contact')
 })
 
+// 搜索
+router.post('/search', (req, res) => {
+    var filter = {};
+    var name = req.body.name;
+    var type = req.body.type;
+    if (name) {
+        name = name.trim();
+        if (name.length > 0) {
+            filter.name = { '$regex': `.*${name}.*?` }
+        }
+    }
+    if (type && type != 'undefined') {
+        type = type.trim();
+        if (type.length > 0) {
+            filter.type = { '$regex': `.*${type}.*?` }
+        }
+    }
+    db.Car.find(filter).exec((err, data) => {
+        res.render('rent/search', {
+            cars: data
+        });
+    })
+})
 module.exports = router;
