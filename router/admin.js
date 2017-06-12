@@ -329,4 +329,60 @@ router.post('/order/edit/:id', (req, res) => {
         }
     })
 })
+
+// 留言列表
+router.get('/contact/list/(:page)?', (req, res) => {
+    // page表示当前显示的是第几页
+    var page = req.params.page
+
+    page = page || 1
+    page = parseInt(page)
+
+    // 规定每页显示5条信息
+    var pageSize = 5
+
+    db.Contact.find().count((err, total) => {
+        if (err) {
+            res.json({ code: 'error', message: '系统错误！' })
+        }
+        else {
+            // 得到一共有几页
+            var pageCount = Math.ceil(total / pageSize)
+            if (page > pageCount) page = pageCount
+            if (page < 1) page = 1
+            db.Contact.find().skip((page - 1) * pageSize).limit(pageSize).populate('user')
+                .exec((err, data) => {
+                    if (err) {
+                        res.json({ code: 'error', message: '系统错误！' })
+                    }
+                    else {
+                        res.render('back/contact/list', {
+                            page,
+                            pageCount,
+                            // 调用getPages
+                            pages: getPages(page, pageCount),
+                            contacts: data.map(m => {
+                                m = m.toObject()
+                                m.id = m._id.toString()
+                                delete m._id
+                                return m;
+                            })
+                        })
+                    }
+                })
+        }
+    })
+})
+
+// 删除车辆
+router.get("/contact/del/(:id)?", (req, res) => {
+    db.Contact.findByIdAndRemove(req.params.id, err => {
+        if (err) {
+            res.json({ code: 'error', message: '系统错误' });
+        }
+        else {
+            res.json({ code: 'success', message: '成功！' });
+        }
+    })
+})
 module.exports = router;

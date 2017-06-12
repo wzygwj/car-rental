@@ -22,6 +22,15 @@ router.get('/list/:display/:size/(:page)?', (req, res) => {
     page = page || 1
     page = parseInt(page)
 
+    // /list/slider?type=test
+    // req.query.type='test'
+
+    // // post请求
+    // req.body.type
+
+    // /list/test/1/1
+    // req.params.display='tets'
+
     var pageSize = req.params.size
     pageSize = parseInt(pageSize)
 
@@ -61,10 +70,11 @@ router.get('/one/:id', (req, res) => {
 // 获取预定车辆信息
 router.get('/order_info/:id', (req, res) => {
     db.Car.findById(req.params.id, (err, data) => {
+        console.log(data)
         if (err) {
-            console.log(err)
-        } else {
-            res.render('rent/order', { car: data })
+            console.log(err)       
+        } else {            
+            res.render('rent/order', { car: data })        
         }
     })
 })
@@ -75,10 +85,18 @@ router.get('/contact', (req, res) => {
 })
 
 // 搜索
-router.post('/search', (req, res) => {
+router.get('/search', (req, res) => {
+    // /list/slider?type=test
+    // req.query.type='test'
+
+    // // post请求
+    // req.body.type = '1'
+
+    // /list/test/1/1
+    // req.params.display='tets'
     var filter = {};
-    var name = req.body.name;
-    var type = req.body.type;
+    var name = req.query.name;
+    var type = req.query.type;
     if (name) {
         name = name.trim();
         if (name.length > 0) {

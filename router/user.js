@@ -25,9 +25,9 @@ router.post('/login', (req, res) => {
 })
 
 // 用户注册
-router.get('/register', (req, res) => {
-    res.render('rent/register')
-})
+// router.get('/register', (req, res) => {
+//     res.render('rent/register')
+// })
 router.post('/register', (req, res) => {
     req.body.isAdmin = false;
     new db.User(req.body).save(err => {
@@ -62,6 +62,7 @@ router.get('/contact', (req, res) => {
 router.get('/order/:id', (req, res) => {
     db.Order.findOne({ user: req.params.id }).populate("user car")
         .exec(function (err, data) {
+            console.log(data)
             res.render('rent/order_info', { data: data })
         });
 

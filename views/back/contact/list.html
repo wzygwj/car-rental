@@ -1,0 +1,63 @@
+<div id="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-head-line">留言管理</h1>
+            <h1 class="page-subhead-line">留言列表</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!--   Kitchen Sink -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>用户</th>
+                                    <th>内容</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{each contacts as c i}}
+                                <tr>
+                                    <td>{{c.user.username}}</td>
+                                    <td>{{c.content}}</td>
+                                    <td>
+                                        <i class="fa fa-trash"></i><a href="javascript:void(0)" onclick="del('/admin/contact/del/{{c.id}}')">删除</a>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination">
+                        <li {{if page==1 }} class="disabled" {{/if}}><a href="javascript:void(0)" onclick="getList('{{page - 1}}')">&laquo;</a></li>
+                        {{each pages as p}}
+                        <li {{if p==page}} class="active" {{/if}}><a href="javascript:void(0)" onclick="getList('{{p}}')">{{p}}</a></li>
+                        {{/each}}
+                        <li {{if page==pageCount }} class="disabled" {{/if}}><a href="javascript:void(0)" onclick="getList('{{page + 1}}')">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End  Kitchen Sink -->
+        </div>
+    </div>
+</div>
+<script>
+    function getList(page) {
+        $('#page-wrapper').load('/admin/contact/list/' + page);
+    }
+    function edit(url) {
+        $('#page-wrapper').load(url);
+    }
+    function del(url) {
+        $.get(url, function (res) {
+            if (res.code == 'success') {
+                $('#page-wrapper').load('/admin/contact/list/');
+            }
+        })
+    }
+
+</script>
